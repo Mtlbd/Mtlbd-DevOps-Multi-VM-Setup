@@ -109,9 +109,9 @@ ansible-playbook playbooks/site.yml -K
 
 ## 🖥 Accessing Services
 
-* **Jenkins**: [http://192.168.181.129:8080](http://192.168.181.129:8080)
-* **Prometheus**: [http://192.168.181.130:9090](http://192.168.181.130:9090)
-* **Grafana**: [http://192.168.181.130:3000](http://192.168.181.130:3000) (default credentials: `admin`/`admin`)
+* **Jenkins**: [http://192.168.181.129:8080]
+* **Prometheus**: [http://192.168.181.130:9090]
+* **Grafana**: [http://192.168.181.130:3000] (default credentials: `admin`/`admin`)
 
 ---
 
