@@ -1,0 +1,51 @@
+---
+- import_role:
+    name: docker
+
+- name: Create prometheus config directory
+  file:
+    path: /opt/prometheus
+    state: directory
+
+- name: Upload prometheus.yml
+  copy:
+    dest: /opt/prometheus/prometheus.yml
+    content: |
+      global:
+        scrape_interval: 15s
+      scrape_configs:
+        - job_name: 'node_exporter'
+          static_configs:
+            - targets: ['localhost:9100']
+        - job_name: 'jenkins'
+          static_configs:
+            - targets: ['vm-ci:8080']
+
+- name: Run Prometheus container
+  docker_container:
+    name: prometheus
+    image: prom/prometheus:latest
+    state: started
+    restart_policy: always
+    volumes:
+      - /opt/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
+    published_ports:
+      - "9090:9090"
+
+- name: Run Grafana container
+  docker_container:
+    name: grafana
+    image: grafana/grafana:latest
+    state: started
+    restart_policy: always
+    published_ports:
+      - "3000:3000"
+
+- name: Run Node Exporter (host network)
+  docker_container:
+    name: node_exporter
+    image: quay.io/prometheus/node-exporter:latest
+    network_mode: host
+    state: started
+    restart_policy: always
+
