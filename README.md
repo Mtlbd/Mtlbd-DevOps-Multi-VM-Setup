@@ -37,14 +37,14 @@ inventory   = ./inventories/hosts.ini
 
 ```ini
 [all]
-vm-ci    ansible_host=192.168.56.102 ansible_user=mt ansible_ssh_private_key_file=~/.ssh/id_ansible
-vm-mon   ansible_host=192.168.56.103 ansible_user=mt ansible_ssh_private_key_file=~/.ssh/id_ansible
+vm-ci    ansible_host=192.168.181.129 ansible_user=mt ansible_ssh_private_key_file=~/.ssh/id_ansible
+vm-mon   ansible_host=192.168.181.130 ansible_user=mt ansible_ssh_private_key_file=~/.ssh/id_ansible
 
 [ci]
-vm-ci
+ci-jenkins
 
 [monitoring]
-vm-mon
+prom-monitoring
 ```
 
 ### playbooks/site.yml
@@ -76,8 +76,8 @@ vm-mon
 
    ```bash
    ssh-keygen -t ed25519 -f ~/.ssh/id_ansible -N ""
-   ssh-copy-id -i ~/.ssh/id_ansible.pub mt@192.168.56.102
-   ssh-copy-id -i ~/.ssh/id_ansible.pub mt@192.168.56.103
+   ssh-copy-id -i ~/.ssh/id_ansible.pub mt@192.168.181.129
+   ssh-copy-id -i ~/.ssh/id_ansible.pub mt@192.168.181.130
    ```
 3. **Passwordless sudo** for user `mt` on vm-ci and vm-mon:
 
@@ -109,9 +109,9 @@ ansible-playbook playbooks/site.yml -K
 
 ## 🖥 Accessing Services
 
-* **Jenkins**: [http://192.168.56.102:8080](http://192.168.56.102:8080)
-* **Prometheus**: [http://192.168.56.103:9090](http://192.168.56.103:9090)
-* **Grafana**: [http://192.168.56.103:3000](http://192.168.56.103:3000) (default credentials: `admin`/`admin`)
+* **Jenkins**: [http://192.168.181.129:8080](http://192.168.181.129:8080)
+* **Prometheus**: [http://192.168.181.130:9090](http://192.168.181.130:9090)
+* **Grafana**: [http://192.168.181.130:3000](http://192.168.181.130:3000) (default credentials: `admin`/`admin`)
 
 ---
 
